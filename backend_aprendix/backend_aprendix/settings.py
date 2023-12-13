@@ -79,14 +79,20 @@ WSGI_APPLICATION = 'backend_aprendix.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'aprendix_back',
-        'USER': 'root',
-        'PASSWORD': '',
-        'HOST': '127.0.0.1',
-        'PORT': '3306'
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'db.sqlite',
     }
 }
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'aprendix_back',
+#         'USER': 'root',
+#         'PASSWORD': '',
+#         'HOST': '127.0.0.1',
+#         'PORT': '3306'
+#     }
+# }
 
 
 # Password validation
@@ -130,11 +136,11 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-REST_FRAMEWORK = {
+# REST_FRAMEWORK = {
 
-    'DEFAULT_AUTHENTICATION_CLASSES': (
+#     'DEFAULT_AUTHENTICATION_CLASSES': (
     
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-    )
+#         'rest_framework_simplejwt.authentication.JWTAuthentication',
+#     )
 
-}
+# }
