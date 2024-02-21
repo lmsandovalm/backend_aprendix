@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Eliminar Docente</title>
+  <!-- Enlace al archivo CSS de Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<!-- Contenedor principal utilizando Bootstrap -->
+<div class="container mt-5">
+  <!-- Fila de la cuadrícula de Bootstrap, centrada horizontalmente -->
+  <div class="row justify-content-center">
+    <!-- Columna de tamaño medio -->
+    <div class="col-md-6">
+      <!-- Tarjeta de Bootstrap -->
+      <div class="card">
+        <!-- Encabezado de la tarjeta -->
+        <div class="card-header">
+          <!-- Título del encabezado -->
+          <h5 class="card-title mb-0 text-center">Eliminar Docente</h5>
+        </div>
+        <!-- Cuerpo de la tarjeta -->
+        <div class="card-body">
+          <!-- Información del docente a eliminar -->
+          <p>¿Estás seguro de que deseas eliminar al docente {{ docente.nombre }}?</p>
+          <!-- Formulario para confirmar la eliminación -->
+          <form id="eliminarDocenteForm" action="{% url 'eliminar_docente' docente.pk %}" method="post">
+            {% csrf_token %}
+            <!-- Botón para confirmar la eliminación -->
+            <button type="button" class="btn btn-danger" onclick="confirmarEliminacion()">Confirmar Eliminación</button>
+            <a href="{% url 'listar_docentes' %}" class="btn btn-secondary">Cancelar</a>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Script de JavaScript para confirmar la eliminación -->
+<script>
+  function confirmarEliminacion() {
+    if (confirm("¿Estás seguro de que deseas eliminar este docente?")) {
+      document.getElementById("eliminarDocenteForm").submit();
+    }
+  }
+</script>
+
+</body>
+</html>

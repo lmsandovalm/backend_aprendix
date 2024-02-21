@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Listado de Docentes</title>
+</head>
+<body>
+    <h1>Listado de Docentes</h1>
+    <ul>
+        {% for docente in docentes %}
+            <li>{{ docente.nombre }} - {{ docente.especialidad }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

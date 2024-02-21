@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Buscar Docente</title>
+  <!-- Enlace al archivo CSS de Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    /* Estilos personalizados */
+    .card {
+      border-radius: 10px;
+    }
+    .card-header {
+      background-color: #007bff;
+      color: #fff;
+      border-radius: 10px 10px 0 0;
+    }
+    .card-body {
+      padding: 20px;
+    }
+    .form-control {
+      border-radius: 20px;
+    }
+    .btn {
+      border-radius: 20px;
+    }
+    .list-group-item {
+      border: none;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Contenedor principal utilizando Bootstrap -->
+<div class="container mt-5">
+  <!-- Fila de la cuadrícula de Bootstrap, centrada horizontalmente -->
+  <div class="row justify-content-center">
+    <!-- Columna de tamaño medio -->
+    <div class="col-md-6">
+      <!-- Tarjeta de Bootstrap -->
+      <div class="card">
+        <!-- Encabezado de la tarjeta -->
+        <div class="card-header">
+          <!-- Título del encabezado -->
+          <h5 class="card-title mb-0 text-center">Buscar Docente</h5>
+        </div>
+        <!-- Cuerpo de la tarjeta -->
+        <div class="card-body">
+          <!-- Formulario de búsqueda -->
+          <form method="post">
+            {% csrf_token %}
+            <div class="input-group mb-3">
+              <input type="text" name="termino_busqueda" class="form-control" placeholder="Buscar docente..." aria-label="Buscar docente..." aria-describedby="button-addon2">
+              <button class="btn btn-primary" type="submit" id="button-addon2">Buscar</button>
+            </div>
+          </form>
+          <!-- Resultados de la búsqueda -->
+          <ul class="list-group">
+            {% for docente in docentes %}
+            <li class="list-group-item">
+              <h5>{{ docente.nombre }}</h5>
+              <p><strong>Email:</strong> {{ docente.correo }}</p>
+              <p><strong>Teléfono:</strong> {{ docente.telefono }}</p>
+              <p><strong>Especialidad:</strong> {{ docente.especialidad }}</p>
+              <a href="{% url 'editar_docente' docente.pk %}" class="btn btn-primary btn-sm">Editar</a>
+              <form action="{% url 'eliminar_docente' docente.pk %}" method="post" style="display: inline;">
+                {% csrf_token %}
+                <input type="submit" value="Eliminar" class="btn btn-danger btn-sm">
+              </form>
+            </li>
+            {% empty %}
+            <li class="list-group-item">No se encontraron resultados.</li>
+            {% endfor %}
+          </ul>
+          <!-- Botón para volver a la administración de docentes -->
+          <a href="{% url 'docentes' %}" class="btn btn-secondary mt-3">Volver a la administración de docentes</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
