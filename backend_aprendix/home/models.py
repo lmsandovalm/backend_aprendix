@@ -2,6 +2,7 @@ from django.contrib.auth.models import AbstractUser, Group, Permission
 from django.db import models
 from django.contrib.auth.models import User
 
+
 class User(AbstractUser):
     groups = models.ManyToManyField(
         Group, 
@@ -40,10 +41,6 @@ class Perfil(models.Model):
     def __str__(self):
         return f"Perfil de {self.usuario}"
 
-##########################################################
-################ Preguntas y Respuestas ##################
-##########################################################
-
 class Pregunta(models.Model):
     texto_pregunta = models.CharField(max_length=200)
 
@@ -71,11 +68,6 @@ class Resultado(models.Model):
     def __str__(self):
         return f"Resultado de {self.usuario}: {self.respuesta}"
 
-
-##########################################################
-################### Iscripcion Cursos ####################
-##########################################################
-
 class Curso(models.Model):
     nombre_curso = models.CharField(max_length=50)
     descripcion_curso = models.CharField(max_length=200)
@@ -92,7 +84,6 @@ class Inscripcion(models.Model):
     def __str__(self):
         return f"Inscripción de {self.usuario} en curso {self.curso}"
 
-
 class Tematica(models.Model):
     id_curso = models.ForeignKey(Curso, on_delete=models.CASCADE)
     nombre_tematica = models.CharField(max_length=50)
@@ -100,10 +91,6 @@ class Tematica(models.Model):
 
     def __str__(self):
         return f"Tema {self.nombre_tematica} del curso {self.id_curso}"
-
-##########################################################
-###################### Actividades #######################
-##########################################################
 
 class ActividadIA(models.Model):
     id_tematica = models.ForeignKey(Tematica, on_delete=models.CASCADE)
@@ -117,7 +104,6 @@ class ActividadIA(models.Model):
 class RespuestaAct(models.Model):
     id_actividadIA          = models.ForeignKey(ActividadIA, on_delete=models.CASCADE)
     id_perfil               = models.PositiveBigIntegerField(null=True, blank=True)  
-    # id_perfil               = models.ForeignKey(Perfil, on_delete=models.CASCADE)  
     fecha_progreso          = models.DateField(auto_now=True)
     comentario              = models.TextField(null=True, blank=True)
     calificacion_progreso   = models.BooleanField(default=False)
@@ -125,3 +111,11 @@ class RespuestaAct(models.Model):
     def __str__(self):
         return f"Respuesta a la actividad de IA ({self.id_actividadIA}): {self.calificacion_progreso}"
 
+class Docente(models.Model):
+    nombre = models.CharField(max_length=100)
+    correo = models.EmailField()
+    telefono = models.CharField(max_length=15)
+    especialidad = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.nombre
